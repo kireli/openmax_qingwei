@@ -1,0 +1,45 @@
+#! /bin/bash
+#-------------------------------------------------------------------------------
+
+## project tree definitions.
+OSM_DIR=${HOME}/osm-build
+
+
+## bail immediately if error exists.
+set -e
+
+
+## check for limoi-base
+if [ ! -d ${OSM_DIR} ]; then
+    if [ ! -d ../limoi-base* ]; then
+	echo "limoi-base not found, unknown source tree layout!" ;
+	exit -1 ;
+    else
+	pushd .
+	cd ../limoi-base* ;
+	./osm ;
+	popd
+    fi
+fi
+
+
+## so that we can find the limoi-core package.
+export PKG_CONFIG_PATH=${OSM_DIR}/lib/pkgconfig
+
+
+## config and build plugins from sub-directories
+PLUGIN_SUBDIRS=(\
+    "resource_managers"
+)
+for sd in "${PLUGIN_SUBDIRS[@]}" ; do
+    if [ -d ${sd} ]; then
+	cd ${sd} ;
+	./osm
+	cd ..
+    fi
+done
+
+echo
+echo "CONGRATULATIONS, you've successfully made all limoi plugins."
+echo "components have been installed to ${OSM_DIR}/lib/limoi."
+echo

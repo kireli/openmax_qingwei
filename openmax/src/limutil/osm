@@ -1,0 +1,29 @@
+#! /bin/bash
+#-------------------------------------------------------------------------------
+
+## project tree definitions.
+OSM_DIR=${HOME}/osm-build
+
+
+## bail immediately if error exists.
+set -e
+
+
+## create osm dir
+mkdir -p ${OSM_DIR}
+
+
+## config and build LIM utility
+echo
+echo "config and build LIM utility package ..."
+echo
+autoreconf -i
+./configure --prefix=${OSM_DIR}
+make all install
+make check
+
+
+echo
+echo "CONGRATULATIONS, you've successfully made the limutil package."
+echo "liblimutil has been installed to ${OSM_DIR}."
+echo

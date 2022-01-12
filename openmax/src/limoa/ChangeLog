@@ -1,0 +1,18 @@
+2009-09-23  swoag  <swoag@swoag.com>
+
+	* osm concept and initial attempt.
+
+
+2009-09-22  swoag  <swoag@swoag.com>
+
+	* initial framework code completion
+	* OpenMAX AL frontend and OpenMAX IL based backend
+	* IPC message from frontend to backend
+	* callback from backend to frontend
+	* demo audio playback (ogg codec support)
+
+
+2009-08-20  swoag  <swoag@swoag.com>
+
+	* project comes to life
+

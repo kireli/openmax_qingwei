@@ -1,0 +1,47 @@
+what is OSM
+===========
+
+OSM, pronounced as 'awesome', stands for "One Step Make".
+
+Yes, one and _ONLY_ one step to make your project, by typing ./osm
+
+The idea is really simple: no matter how complicated the system is, there must
+be one way or aother to chain all steps together with some sort of scripting.
+It does not really matter whether it is the most efficient, or even right way.
+It is one way to meet the objective: make your project make in ONE step.
+
+It does its best to find ONE way to make the project, hassle free. And very
+importantly it does not affect your host system in any regard except taking
+some disk space (project varies), and osm can be completely reverted by
+simply remove the 'osm-dir', the directory that contains all downloaded
+supporting packages if any.
+
+
+
+what it does
+============
+
+one step to make the project.
+
+
+
+what it does not
+================
+
+it does not think for you, it has no brain. Your mileage varies depending
+on what host system you are using, or how different your host system is from
+the one used by original developers.
+
+
+
+who should use it
+=================
+
+if you are dumb and/or lazy, as I am, give it a try.
+
+
+
+what I do if doesn't work
+=========================
+
+report problems, get them fixed, till it becomes really 'awesome'.

@@ -1,0 +1,13 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+toolsdir=@bindir@
+pluginsdir=@plugindir@
+
+Name: liblimoa
+Description: LIM OpenMAX Application layer library
+Version: @VERSION@
+Libs: -L${libdir} -lpthread -llimoa
+Cflags: -I${includedir}
+

@@ -1,0 +1,13 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+toolsdir=@bindir@
+pluginsdir=@plugindir@
+
+Name: liblimutil
+Description: LIM utility library
+Version: @VERSION@
+Libs: -L${libdir} -lpthread -llimutil
+Cflags: -I${includedir} -I${includedir}/limutil
+

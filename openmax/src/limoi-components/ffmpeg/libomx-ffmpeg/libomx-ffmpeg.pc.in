@@ -1,0 +1,13 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+toolsdir=@bindir@
+pluginsdir=@plugindir@
+
+Name: libomx-ffmpeg
+Description: LIM ffmpeg OpenMax wrapper library
+Version: @VERSION@
+Libs: -L${libdir} -lpthread -lomx-ffmpeg
+Cflags: -I${includedir} -I${includedir}/omx-ffmpeg
+

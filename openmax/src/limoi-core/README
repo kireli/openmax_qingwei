@@ -1,0 +1,21 @@
+Less Is More OpenMAX Integration Layer --- limoi
+================================================
+
+limoi-core provides the component loader and all OpenMAX integration layer APIs,
+it is designed to work with any integration layer components, in addition to
+those developed under limoi framework.
+
+
+BUILD
+=====
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    [ recommend reading: OSM_README ]
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    autoreconf -i
+    ./configure
+    make all install check
+
+
+more to come and help is wanted in every area ...

@@ -1,0 +1,10 @@
+LIM OpenMax demo resource manager
+=================================
+
+
+BUILD
+=====
+
+    autoreconf -i
+    ./configure
+    make all install check

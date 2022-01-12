@@ -1,0 +1,38 @@
+#! /bin/bash
+#-------------------------------------------------------------------------------
+
+## project tree definitions.
+OSM_DIR=${HOME}/osm-build
+
+
+## bail immediately if error exists.
+set -e
+
+
+## so that we can find the limoi-core package.
+export PKG_CONFIG_PATH=${OSM_DIR}/lib/pkgconfig
+
+
+## config and build all SDL components
+COMPONENTS=(\
+    "video_sink" \
+)
+
+for comp in "${COMPONENTS[@]}" ; do
+    if [ -d ${comp}* ]; then
+	echo
+	echo "config and build OpenMAX IL limoi component: $comp"
+	echo
+	cd ${comp}*
+	autoreconf -i
+	./configure --prefix=${OSM_DIR}
+	make all install
+	make check
+	cd ..
+    fi
+done
+
+echo
+echo "CONGRATULATIONS, you've successfully made all limoi SDL components."
+echo "components have been installed to ${OSM_DIR}/lib/limoi."
+echo

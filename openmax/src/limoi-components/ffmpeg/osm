@@ -1,0 +1,81 @@
+#! /bin/bash
+#-------------------------------------------------------------------------------
+
+## project tree definitions.
+OSM_DIR=${HOME}/osm-build
+
+
+## bail immediately if error exists.
+set -e
+
+
+## LIMOI development tree ?
+if [ -e demux ]; then
+    lim_dev_tree=YES
+else
+    lim_dev_tree=NO
+fi
+
+
+## check to fetch FFMPEG and set up tree
+LIM_FFMPEG_PATCH_SIGNATURE=0003
+if [ ! -d src/libavformat ]; then
+	git clone git://git.videolan.org/ffmpeg src
+fi
+## patch ffmpeg if not patched already
+if [ ! -f src/.lim-ffmpeg-patch.${LIM_FFMPEG_PATCH_SIGNATURE} ]; then
+#remove patch signature on entry
+    rm -f src/.lim-ffmpeg-patch.*
+
+    pushd .
+    cd src
+    git reset --hard
+    git fetch --all
+    git checkout n0.8.1
+    patch -p1 -i ../patches/0001-export-audioconvert-header.patch
+    popd
+
+#assign patch signature after patches have been successfully applied
+    touch src/.lim-ffmpeg-patch.${LIM_FFMPEG_PATCH_SIGNATURE}
+fi
+
+
+## so that we can find the limoi-core package.
+export PKG_CONFIG_PATH=${OSM_DIR}/lib/pkgconfig
+
+
+## config and build FFMPEG
+pushd .
+cd src
+./configure --prefix=${OSM_DIR} --enable-shared --disable-yasm
+make all install
+popd
+
+
+## config and build all FFMPEG components
+COMPONENTS=(\
+    "libomx-ffmpeg" \
+    "demux" \
+    "mux" \
+    "decode" \
+    "encode" \
+)
+
+for comp in "${COMPONENTS[@]}" ; do
+    if [ -d ${comp}* ]; then
+	echo
+	echo "config and build OpenMAX IL limoi component: $comp"
+	echo
+	cd ${comp}*
+	autoreconf -i
+	./configure --prefix=${OSM_DIR}
+	make all install
+	make check
+	cd ..
+    fi
+done
+
+echo
+echo "CONGRATULATIONS, you've successfully made all limoi FFMPEG components."
+echo "components have been installed to ${OSM_DIR}/lib/limoi."
+echo

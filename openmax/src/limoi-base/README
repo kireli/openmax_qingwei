@@ -1,0 +1,17 @@
+Less Is More OpenMAX Integration Layer --- limoi
+================================================
+
+
+BUILD
+=====
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    [ recommend reading: OSM_README ]
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    autoreconf -i
+    ./configure
+    make all install check
+
+
+more to come and help is wanted in every area ...

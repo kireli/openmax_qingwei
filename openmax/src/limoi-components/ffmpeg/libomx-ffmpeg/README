@@ -1,0 +1,10 @@
+LIM OpenMax FFMPEG wrapper library --- omx-ffmpeg
+=================================================
+
+
+BUILD
+=====
+
+    autoreconf -i
+    ./configure
+    make all install check

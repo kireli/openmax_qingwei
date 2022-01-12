@@ -1,0 +1,7 @@
+This component is based on libvorbis, and expects stream with the framing
+layer. Component works with binary file reader, but won't work with file
+parser/demuxer.
+
+To use, please consider the following data path,
+
+    file-reader --> this-component --> audio sink.

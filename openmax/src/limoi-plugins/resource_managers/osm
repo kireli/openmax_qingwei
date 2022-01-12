@@ -1,0 +1,38 @@
+#! /bin/bash
+#-------------------------------------------------------------------------------
+
+## project tree definitions.
+OSM_DIR=${HOME}/osm-build
+
+
+## bail immediately if error exists.
+set -e
+
+
+## so that we can find the limoi-core package.
+export PKG_CONFIG_PATH=${OSM_DIR}/lib/pkgconfig
+
+
+## config and build all resource managers.
+MANAGERS=(\
+    "demo" \
+)
+
+for mgr in "${MANAGERS[@]}" ; do
+    if [ -d ${mgr}* ]; then
+	echo
+	echo "config and build OpenMAX IL resource manager: $mgr"
+	echo
+	cd ${mgr}*
+	autoreconf -i
+	./configure --prefix=${OSM_DIR}
+	make all install
+	make check
+	cd ..
+    fi
+done
+
+echo
+echo "CONGRATULATIONS, you've successfully made all lim resource managers."
+echo "managers have been installed to ${OSM_DIR}/lib/limoi/resource-manager."
+echo

@@ -1,0 +1,43 @@
+#! /bin/bash
+#-------------------------------------------------------------------------------
+
+## project tree definitions.
+OSM_DIR=${HOME}/osm-build
+
+
+## bail immediately if error exists.
+set -e
+
+
+## check for limoi-core
+if [ ! -d ${OSM_DIR} ]; then
+    if [ ! -d ../limoi-core* ]; then
+	echo "limoi-core not found, unknown source tree layout!" ;
+	exit -1 ;
+    else
+	pushd .
+	cd ../limoi-core* ;
+	./osm ;
+	popd
+    fi
+fi
+
+
+## so that we can find the limoi-core package.
+export PKG_CONFIG_PATH=${OSM_DIR}/lib/pkgconfig
+
+
+## config and build OpenMAX IL
+echo
+echo "config and build OpenMAX IL limoi base package ..."
+echo
+autoreconf -i
+./configure --prefix=${OSM_DIR}
+make all install
+make check
+
+
+echo
+echo "CONGRATULATIONS, you've successfully made limoi-base package."
+echo "liblimoi-base has been installed to ${OSM_DIR}."
+echo

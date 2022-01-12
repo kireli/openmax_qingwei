@@ -1,0 +1,13 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+toolsdir=@bindir@
+pluginsdir=@plugindir@
+
+Name: liblimoi
+Description: LIM OpenMAX Integration Layer core library
+Version: @VERSION@
+Libs: -L${libdir} -lpthread -llimoi-core
+Cflags: -I${includedir}
+

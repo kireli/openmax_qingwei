@@ -1,0 +1,90 @@
+Less Is More OpenMAX Applicatoin Layer --- limoa
+================================================
+
+This is an open source implementation of OpenMAX Application Layer,
+based on OpenMAX Integration Layer components.
+
+
+
+ARCHITECTURE
+============
+
+    limoa itself is structured with frontend and backend modules, frontend
+    provides standard OpenMAX AL APIs, while the backend implements the
+    actual media functionalities.
+
+    limoa can be either linked as a fully functional OpenMAX AL library
+    with backend included, or a thin OpenMAX AL layer API library,
+    leaving majority of the OpenMAX AL implementation to limox, a backend
+    multimedia framework daemon.
+
+    In either case, application links against with liblimoa to access
+    OpenMAX AL APIs.
+
+
+    LINKED IN MODE
+    --------------
+
+        When limox is linked in, liblimoa interanlly bypasses the IPC
+        layer, and limox operates in application main thread context.
+
+        +-------------+   +------------------+   +-------------------+
+        | Application |<->| liblimoa + limox |<->| OMX-IL Components |
+        +-------------+   +------------------+   +-------------------+
+
+
+    DAEMON MODE
+    -----------
+
+        When the limox daemon is present, limoa is very much stateless and
+        communicates with lomox through local IPC socket.
+
+        +-------------+   +----------+   +-------+   +-------------------+
+        | Application |<->| liblimoa |<->| limox |<->| OMX-IL Components |
+        +-------------+   +----------+   +-------+   +-------------------+
+
+        OpenMAX AL requests initiated from user application first gets
+        to limoa (the front end), requests will then be routed to limox
+        (the backend) through the synchronous IPC message interface. There
+        are also asynchronous IPC callback messages initiated by limox if
+        corresponding callbacks are registered through limoa.
+
+        limox can serve requests from multiple frontend applications, or
+        multiple objects from within one frontend application.
+
+
+
+BUILD
+=====
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    [ recommend reading: OSM_README ]
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Assume you have your OpenMAX IL components installed in
+    standard area, project can be built as the following,
+
+    autoreconf -i
+    ./configure
+    make all install check
+
+
+
+PLAY
+====
+
+    LINKED IN MODE
+    --------------
+
+        1. ./player my-media-file
+
+          #press any key for runtime options
+
+
+    DAEMON MODE
+    -----------
+        1. start the limox backend first
+
+           <my-installation-dir>/bin/limox
+
+        2. see above LINKED IN MODE for player usage.

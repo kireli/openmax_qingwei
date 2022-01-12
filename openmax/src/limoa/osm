@@ -1,0 +1,45 @@
+#! /bin/bash
+#-------------------------------------------------------------------------------
+
+## project tree definitions.
+OSM_DIR=${HOME}/osm-build
+
+
+## bail immediately if error exists.
+set -e
+
+
+## check to build OpenMAX IL components
+if [ ! -d ${OSM_DIR} ]; then
+    if [ ! -d ../limoi-components* ]; then
+	echo "limoi-components not found, unknown source tree layout!" ;
+	exit -1 ;
+    else
+	pushd .
+	cd ../limoi-components* ;
+	./osm ;
+	popd
+    fi
+fi
+
+
+## so that we can find the limoi-core package.
+export PKG_CONFIG_PATH=${OSM_DIR}/lib/pkgconfig
+
+
+## config and build OpenMAX AL
+echo
+echo "config and build OpenMAX AL package ..."
+echo
+autoreconf -i
+./configure --prefix=${OSM_DIR} ##--enable-limox
+make all install
+make check
+
+echo
+echo "CONGRATULATIONS, you've successfully made the entire system."
+echo
+echo "consider running the following to play back audio"
+echo "    ${OSM_DIR}/bin/limox &  (if limox is enabled, otherwise not needed)"
+echo "    ${PWD}/test/player <file-name>"
+echo

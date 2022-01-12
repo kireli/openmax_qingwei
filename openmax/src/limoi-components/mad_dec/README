@@ -1,0 +1,8 @@
+This component is based on libmad, and expects stream with or without the
+framing layer. Component works with both binary file reader and file
+parser/demuxer.
+
+To use, please consider the following data path,
+
+    file-reader    --> this-component --> audio-sink
+    parser-demuxer --> this-component --> audio-sink
